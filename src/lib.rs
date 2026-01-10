@@ -25,7 +25,7 @@ pub fn load_items() -> Result<Items, Error> {
         Ok(items) => items,
     };
 
-    return Ok(items);
+    Ok(items)
 }
 
 pub fn load_room() -> Result<Room, Error> {
@@ -43,7 +43,7 @@ pub fn load_room() -> Result<Room, Error> {
         Ok(items) => items,
     };
 
-    return Ok(room);
+    Ok(room)
 }
 
 fn load_json_text<'buf>(path: &Path, text: &mut String) {
