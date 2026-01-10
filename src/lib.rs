@@ -56,13 +56,12 @@ fn load_json_text(path: &Path, text: &mut String) {
         Ok(file) => file,
     };
 
-    match file.read_to_string(text) {
-        Err(why) => panic!(
+    if let Err(why) = file.read_to_string(text) {
+        panic!(
             "couldn't read json at '{}': {}",
             path.to_string_lossy(),
             why
-        ),
-        Ok(_) => (),
+        )
     }
 }
 
