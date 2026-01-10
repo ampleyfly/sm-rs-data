@@ -6,62 +6,75 @@ pub mod requirements;
 pub mod rooms;
 
 use crate::{items::*, requirements::*, rooms::*};
-use serde_json::Error;
+use std::fmt;
 use std::io::prelude::*;
 use std::{fs::File, path::Path};
 
+#[derive(Debug)]
+pub enum Error {
+    Parse(String, serde_json::Error),
+    Open(String, std::io::Error),
+    Read(String, std::io::Error),
+}
+
 pub fn load_items() -> Result<Items, Error> {
     let path = Path::new("data/items.json");
-    let mut text = String::new();
 
-    load_json_text(path, &mut text);
+    let text = load_json_text(path)?;
 
-    let items: Items = match serde_json::from_str(&text) {
-        Err(why) => panic!(
-            "couldn't parse json at '{}': {}",
-            path.to_string_lossy(),
-            why
-        ),
-        Ok(items) => items,
-    };
+    let items: Items = serde_json::from_str(&text)
+        .map_err(|why| Error::Parse(path.to_string_lossy().to_string(), why))?;
 
     Ok(items)
 }
 
 pub fn load_room() -> Result<Room, Error> {
     let path = Path::new("data/region/brinstar/blue/Morph Ball Room.json");
-    let mut text = String::new();
 
-    load_json_text(path, &mut text);
+    let text = load_json_text(path)?;
 
-    let room: Room = match serde_json::from_str(&text) {
-        Err(why) => panic!(
-            "couldn't parse json at '{}': {}",
-            path.to_string_lossy(),
-            why
-        ),
-        Ok(items) => items,
-    };
+    let room: Room = serde_json::from_str(&text)
+        .map_err(|why| Error::Parse(path.to_string_lossy().to_string(), why))?;
 
     Ok(room)
 }
 
-fn load_json_text(path: &Path, text: &mut String) {
-    let mut file = match File::open(path) {
-        Err(why) => panic!(
-            "couldn't open json at '{}': {}",
-            path.to_string_lossy(),
-            why
-        ),
-        Ok(file) => file,
-    };
+fn load_json_text(path: &Path) -> Result<String, Error> {
+    let mut text = String::new();
 
-    if let Err(why) = file.read_to_string(text) {
-        panic!(
-            "couldn't read json at '{}': {}",
-            path.to_string_lossy(),
-            why
-        )
+    let mut file = File::open(path).map_err(|why| Error::Open(path.to_string_lossy().to_string(), why))?;
+
+    file.read_to_string(&mut text)
+        .map_err(|why| Error::Read(path.to_string_lossy().to_string(), why))?;
+
+    Ok(text)
+}
+
+impl std::error::Error for Error {
+}
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Error::Parse(path, error) => write!(
+                f,
+                "couldn't parse json at '{}': {}",
+                path,
+                error
+            ),
+            Error::Open(path, error) => write!(
+                f,
+                "couldn't open json at '{}': {}",
+                path,
+                error
+            ),
+            Error::Read(path, error) => write!(
+                f,
+                "couldn't read json at '{}': {}",
+                path,
+                error
+            ),
+        }
     }
 }
 
