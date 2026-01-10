@@ -19,34 +19,25 @@ pub enum Error {
 
 pub fn load_items() -> Result<Items, Error> {
     let path = Path::new("data/items.json");
-
     let text = load_json_text(path)?;
-
     let items: Items = serde_json::from_str(&text)
         .map_err(|why| Error::Parse(path.to_string_lossy().to_string(), why))?;
-
     Ok(items)
 }
 
 pub fn load_room() -> Result<Room, Error> {
     let path = Path::new("data/region/brinstar/blue/Morph Ball Room.json");
-
     let text = load_json_text(path)?;
-
     let room: Room = serde_json::from_str(&text)
         .map_err(|why| Error::Parse(path.to_string_lossy().to_string(), why))?;
-
     Ok(room)
 }
 
 fn load_json_text(path: &Path) -> Result<String, Error> {
     let mut text = String::new();
-
     let mut file = File::open(path).map_err(|why| Error::Open(path.to_string_lossy().to_string(), why))?;
-
     file.read_to_string(&mut text)
         .map_err(|why| Error::Read(path.to_string_lossy().to_string(), why))?;
-
     Ok(text)
 }
 
