@@ -46,7 +46,7 @@ pub fn load_room() -> Result<Room, Error> {
     Ok(room)
 }
 
-fn load_json_text<'buf>(path: &Path, text: &mut String) {
+fn load_json_text(path: &Path, text: &mut String) {
     let mut file = match File::open(path) {
         Err(why) => panic!(
             "couldn't open json at '{}': {}",
