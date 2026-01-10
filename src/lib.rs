@@ -25,9 +25,9 @@ pub fn load_items() -> Result<Items, Error> {
     Ok(items)
 }
 
-pub fn load_room() -> Result<Room, Error> {
-    let path = Path::new("data/region/brinstar/blue/Morph Ball Room.json");
-    let text = load_json_text(path)?;
+pub fn load_room(room_path: &Path) -> Result<Room, Error> {
+    let path = Path::new("data/region/").join(room_path);
+    let text = load_json_text(&path)?;
     let room: Room = serde_json::from_str(&text)
         .map_err(|why| Error::Parse(path.to_string_lossy().to_string(), why))?;
     Ok(room)
@@ -81,7 +81,7 @@ mod tests {
 
     #[test]
     fn it_deserializes_room() {
-        let rooms = load_room();
+        let rooms = load_room(Path::new("brinstar/blue/Morph Ball Room.json"));
         assert!(rooms.is_ok());
         let r: Room = match rooms {
             Ok(room) => room,
