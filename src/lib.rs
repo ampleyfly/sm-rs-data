@@ -1,14 +1,14 @@
 #![allow(unused)]
 
 pub mod items;
-pub mod rooms;
 pub mod notes;
 pub mod requirements;
+pub mod rooms;
 
-use std::{fs::File, path::Path};
-use std::io::prelude::*;
 use crate::{items::*, requirements::*, rooms::*};
 use serde_json::Error;
+use std::io::prelude::*;
+use std::{fs::File, path::Path};
 
 pub fn load_items() -> Result<Items, Error> {
     let path = Path::new("data/items.json");
@@ -17,7 +17,11 @@ pub fn load_items() -> Result<Items, Error> {
     load_json_text(path, &mut text);
 
     let items: Items = match serde_json::from_str(&text) {
-        Err(why) => panic!("couldn't parse json at '{}': {}", path.to_string_lossy(), why),
+        Err(why) => panic!(
+            "couldn't parse json at '{}': {}",
+            path.to_string_lossy(),
+            why
+        ),
         Ok(items) => items,
     };
 
@@ -31,7 +35,11 @@ pub fn load_room() -> Result<Room, Error> {
     load_json_text(path, &mut text);
 
     let room: Room = match serde_json::from_str(&text) {
-        Err(why) => panic!("couldn't parse json at '{}': {}", path.to_string_lossy(), why),
+        Err(why) => panic!(
+            "couldn't parse json at '{}': {}",
+            path.to_string_lossy(),
+            why
+        ),
         Ok(items) => items,
     };
 
@@ -40,12 +48,20 @@ pub fn load_room() -> Result<Room, Error> {
 
 fn load_json_text<'buf>(path: &Path, text: &mut String) {
     let mut file = match File::open(path) {
-        Err(why) => panic!("couldn't open json at '{}': {}", path.to_string_lossy(), why),
+        Err(why) => panic!(
+            "couldn't open json at '{}': {}",
+            path.to_string_lossy(),
+            why
+        ),
         Ok(file) => file,
     };
 
     match file.read_to_string(text) {
-        Err(why) => panic!("couldn't read json at '{}': {}", path.to_string_lossy(), why),
+        Err(why) => panic!(
+            "couldn't read json at '{}': {}",
+            path.to_string_lossy(),
+            why
+        ),
         Ok(_) => (),
     }
 }

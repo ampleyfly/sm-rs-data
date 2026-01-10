@@ -1,5 +1,5 @@
-use serde::Deserialize;
 use crate::{items::*, Node, NodeId, ObstacleId};
+use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub enum Requirement {
@@ -31,20 +31,26 @@ pub enum Logic {
     Ammo(AmmoAmount),
     AmmoDrain(AmmoAmount),
     Refill(Vec<Resource>),
-    PartialRefill { resource: Option<Resource>, limit: Option<u8> },
+    PartialRefill {
+        resource: Option<Resource>,
+        limit: Option<u8>,
+    },
     #[serde(rename = "enemyKill")]
     KillEnemies(EnemiesToKill),
     AcidFrames(u8),
     AcidFramesNoGravity(u8),
     DraygonElectricityFrames(u8),
-    EnemyDamage { 
-        enemy: String, 
+    EnemyDamage {
+        enemy: String,
         #[serde(rename = "type")]
-        enemy_type: String, 
-        hits: u8 
+        enemy_type: String,
+        hits: u8,
     },
     HeatFrames(u8),
-    HeatFramesWithEnergyDrops { frames: Option<u8>, drops: Option<Vec<EnemyDrops>> },
+    HeatFramesWithEnergyDrops {
+        frames: Option<u8>,
+        drops: Option<Vec<EnemyDrops>>,
+    },
     HeatFramesWithoutGravity(u8),
     HibashiHits(u8),
     LavaFrames(u8),
@@ -52,7 +58,10 @@ pub enum Logic {
     SamusEaterFrames(u8),
     MetroidFrames(u8),
     EnergyAtMost(u16),
-    AutoReserveTrigger { min_reserve_energy: Option<u8>, max_reserve_energy: Option<u8> },
+    AutoReserveTrigger {
+        min_reserve_energy: Option<u8>,
+        max_reserve_energy: Option<u8>,
+    },
     SpikeHits(u8),
     ThornHits(u8),
     DoorUnlockedAtNode(NodeId),
@@ -62,8 +71,15 @@ pub enum Logic {
     ResourceAvailable(Vec<ResourceAmount>),
     ResourceMissingAtMost(Vec<ResourceAmount>),
     CanShineCharge(SpeedConditions),
-    Shinespark { frames: u8, excess_frames: Option<u8> },
-    ResetRoom { nodes: Vec<NodeId>, nodes_to_avoid: Option<Vec<NodeId>>, must_stay_put: Option<bool> },
+    Shinespark {
+        frames: u8,
+        excess_frames: Option<u8>,
+    },
+    ResetRoom {
+        nodes: Vec<NodeId>,
+        nodes_to_avoid: Option<Vec<NodeId>>,
+        must_stay_put: Option<bool>,
+    },
     ItemNotCollectedAtNode(NodeId),
     GainFlashSuit {},
     UseFlashSuit {},
@@ -74,13 +90,13 @@ pub enum Logic {
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct SpeedConditions {
-    pub used_tiles:             u8,
-    pub open_end:               u8,
-    pub gentle_up_tiles:        Option<u8>,
-    pub gentle_down_tiles:      Option<u8>,
-    pub steep_up_tiles:         Option<u8>,
-    pub steep_down_tiles:       Option<u8>,
-    pub starting_down_tiles:    Option<u8>,
+    pub used_tiles: u8,
+    pub open_end: u8,
+    pub gentle_up_tiles: Option<u8>,
+    pub gentle_down_tiles: Option<u8>,
+    pub steep_up_tiles: Option<u8>,
+    pub steep_down_tiles: Option<u8>,
+    pub starting_down_tiles: Option<u8>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -109,10 +125,10 @@ pub struct ResourceAmount {
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct EnemiesToKill {
-    pub enemies:            Vec<Vec<String>>,
-    pub explicit_weapons:   Option<Vec<String>>,
-    pub excluded_weapons:   Option<Vec<String>>,
-    pub farmable_ammo:      Option<Vec<String>>,
+    pub enemies: Vec<Vec<String>>,
+    pub explicit_weapons: Option<Vec<String>>,
+    pub excluded_weapons: Option<Vec<String>>,
+    pub farmable_ammo: Option<Vec<String>>,
 }
 
 #[derive(Deserialize, Debug)]

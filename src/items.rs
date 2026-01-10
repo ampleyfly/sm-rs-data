@@ -4,7 +4,7 @@ use serde::Deserialize;
 #[serde(rename_all = "camelCase")]
 pub struct StartingResource {
     resource: Resource,
-    max_amount: u16
+    max_amount: u16,
 }
 
 #[derive(Deserialize, Debug)]
@@ -35,7 +35,7 @@ pub enum Resource {
 
 #[derive(Deserialize, Debug)]
 pub enum ItemName {
-    PowerBeam, 
+    PowerBeam,
     PowerSuit,
     Morph,
     Bombs,
