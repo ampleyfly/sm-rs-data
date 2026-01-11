@@ -1,19 +1,19 @@
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct StartingResource {
     resource: Resource,
     max_amount: u16,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct UpgradeItem {
     name: ItemName,
     data: String,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ExpansionItem {
     name: ItemName,
@@ -22,7 +22,7 @@ pub struct ExpansionItem {
     resource_amount: u16,
 }
 
-#[derive(Deserialize, Debug, Default)]
+#[derive(Deserialize, Debug, Default, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum Resource {
     #[default]
@@ -33,7 +33,7 @@ pub enum Resource {
     PowerBomb,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub enum ItemName {
     PowerBeam,
     PowerSuit,
@@ -60,7 +60,7 @@ pub enum ItemName {
     PowerBomb,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[allow(non_camel_case_types)]
 pub enum GameFlag {
     f_AnimalsSaved,
@@ -93,7 +93,7 @@ pub enum GameFlag {
     f_MotherBrainGlassBroken,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Items {
     starting_room: String,

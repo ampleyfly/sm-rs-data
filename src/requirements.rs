@@ -1,7 +1,7 @@
 use crate::{items::*, Node, NodeId, ObstacleId};
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub enum Requirement {
     #[serde(rename = "or")]
     LogicalOr(Vec<Requirement>),
@@ -13,7 +13,7 @@ pub enum Requirement {
     Condition(Check),
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub enum Check {
     #[serde(untagged)]
     Logic(Logic),
@@ -25,7 +25,7 @@ pub enum Check {
     Tech(String),
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum Logic {
     Ammo(AmmoAmount),
@@ -87,7 +87,7 @@ pub enum Logic {
     Tech(String),
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SpeedConditions {
     pub used_tiles: u8,
@@ -99,14 +99,14 @@ pub struct SpeedConditions {
     pub starting_down_tiles: Option<u8>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub enum AmmoResource {
     Missile,
     Super,
     PowerBomb,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct AmmoAmount {
     #[serde(rename = "type")]
@@ -114,7 +114,7 @@ pub struct AmmoAmount {
     pub count: u8,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ResourceAmount {
     #[serde(rename = "type")]
@@ -122,7 +122,7 @@ pub struct ResourceAmount {
     pub count: u8,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct EnemiesToKill {
     pub enemies: Vec<Vec<String>>,
@@ -131,7 +131,7 @@ pub struct EnemiesToKill {
     pub farmable_ammo: Option<Vec<String>>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct EnemyDrops {
     pub enemy: String,

@@ -6,7 +6,7 @@ use crate::{
 use serde::Deserialize;
 use serde_json::Map;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Room {
     pub id: RoomId,
@@ -27,16 +27,16 @@ pub struct Room {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct RoomId(u8);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct RoomName(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct NotableId(u8);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NotableStrat {
     id: NotableId,
@@ -46,7 +46,7 @@ pub struct NotableStrat {
     dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Enemy {
     pub id: EnemyId,
@@ -63,7 +63,7 @@ pub struct Enemy {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct FarmCycle {
     pub name: String,
@@ -73,23 +73,23 @@ pub struct FarmCycle {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct EnemyId(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct EnemyGroup(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct EnemyName(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Link {
     pub from: NodeId,
     pub to: Option<Vec<LinkEnd>>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct LinkEnd {
     pub id: NodeId,
@@ -97,7 +97,7 @@ pub struct LinkEnd {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub enum Area {
     Ceres,
     Brinstar,
@@ -109,7 +109,7 @@ pub enum Area {
     WreckedShip,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub enum SubArea {
     Blue,
     Green,
@@ -124,17 +124,17 @@ pub enum SubArea {
     Crocomire,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub enum SubSubArea {
     Green,
     Pink,
     Yellow,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct RoomMemoryAddress(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct RoomEnvironment {
     pub heated: Option<bool>,
     pub entrance_nodes: Option<Vec<NodeId>>,
@@ -142,7 +142,7 @@ pub struct RoomEnvironment {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Node {
     pub id: NodeId,
@@ -164,13 +164,13 @@ pub struct Node {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct NodeId(u8);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct NodeName(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum NodeType {
     Door,
@@ -182,7 +182,7 @@ pub enum NodeType {
     Utility,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum NodeSubType {
     Boss,
@@ -212,10 +212,10 @@ pub enum NodeSubType {
     Map,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct NodeMemoryAddress(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum DoorOrientation {
     Left,
@@ -224,7 +224,7 @@ pub enum DoorOrientation {
     Down,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct DoorEnvironment {
     pub physics: Physics,
     pub entrance_nodes: Option<Vec<NodeId>>,
@@ -232,7 +232,7 @@ pub struct DoorEnvironment {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum Physics {
     Air,
@@ -242,7 +242,7 @@ pub enum Physics {
     Normal,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Lock {
     pub name: String,
@@ -254,7 +254,7 @@ pub struct Lock {
     pub yields: Option<Vec<Yield>>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum LockType {
     BossFight,
@@ -267,7 +267,7 @@ pub enum LockType {
     TriggeredEvent,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Strat {
     pub name: StratName,
@@ -290,9 +290,9 @@ pub struct Strat {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct StratName(String);
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Obstacle {
     pub id: ObstacleId,
@@ -302,10 +302,10 @@ pub struct Obstacle {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct ObstacleId(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum ObstacleType {
     Inanimate,
@@ -313,7 +313,7 @@ pub enum ObstacleType {
     Abstract,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum EntranceCondition {
     ComeInNormally {},
@@ -380,7 +380,7 @@ pub enum EntranceCondition {
     DevNote(DevNote),
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct MovementConditions {
     pub speed_booster: TrueFalseAny,
@@ -388,7 +388,7 @@ pub struct MovementConditions {
     pub max_tiles: Option<u8>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum TrueFalseAny {
     True,
@@ -396,14 +396,14 @@ pub enum TrueFalseAny {
     Any,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum DoorSparkPosition {
     Top,
     Bottom,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Runway {
     pub length: u8,
@@ -415,7 +415,7 @@ pub struct Runway {
     pub min_tiles: Option<u8>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum FacingThroughTransition {
     Left,
@@ -423,7 +423,7 @@ pub enum FacingThroughTransition {
     Any,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum SpringBallMovement {
     Controlled,
@@ -431,7 +431,7 @@ pub enum SpringBallMovement {
     Any,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum GModeType {
     Direct,
@@ -439,7 +439,7 @@ pub enum GModeType {
     Any,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum GModeMobility {
     Mobile,
@@ -447,7 +447,7 @@ pub enum GModeMobility {
     Any,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum YesNoAny {
     No,
@@ -455,7 +455,7 @@ pub enum YesNoAny {
     Any,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum ExitCondition {
     LeaveNormally {},
@@ -507,7 +507,7 @@ pub enum ExitCondition {
     },
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum SparkFramesRemaining {
     Auto,
@@ -515,7 +515,7 @@ pub enum SparkFramesRemaining {
     FramesRemaining(u8),
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct LeaveWithPlatformBelow {
     pub height: u8,
@@ -523,11 +523,11 @@ pub struct LeaveWithPlatformBelow {
     pub right_position: u8,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct GModeRegainMobility {}
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct UnlocksDoor {
     pub types: Vec<UnlockDoorType>,
@@ -538,7 +538,7 @@ pub struct UnlocksDoor {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum UnlockDoorType {
     Missiles,
@@ -548,7 +548,7 @@ pub enum UnlockDoorType {
     Ammo,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Failure {
     pub name: String,
@@ -559,17 +559,17 @@ pub struct Failure {
     pub dev_note: Option<DevNote>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Yield(String);
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TwinDoorAddress {
     pub room_address: String,
     pub door_address: String,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum Utility {
     Save,
@@ -581,7 +581,7 @@ pub enum Utility {
     Map,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ViewableNode {
     pub id: NodeId,

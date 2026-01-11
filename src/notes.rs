@@ -1,6 +1,6 @@
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug, Default)]
+#[derive(Deserialize, Debug, Default, Clone)]
 #[serde(untagged)]
 pub enum Note {
     #[default]
@@ -9,7 +9,7 @@ pub enum Note {
     MultiLine(Vec<String>),
 }
 
-#[derive(Deserialize, Debug, Default)]
+#[derive(Deserialize, Debug, Default, Clone)]
 #[serde(untagged)]
 pub enum DevNote {
     #[default]
