@@ -5,7 +5,7 @@ pub mod notes;
 pub mod requirements;
 pub mod rooms;
 
-use crate::{items::*, requirements::*, rooms::*};
+pub use crate::{items::*, requirements::*, rooms::*};
 use std::fmt;
 use std::io::prelude::*;
 use std::{fs::File, path::Path};
