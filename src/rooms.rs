@@ -21,7 +21,7 @@ pub struct Room {
     pub room_address: Option<RoomMemoryAddress>,
     pub obstacles: Option<Vec<Obstacle>>,
     pub enemies: Option<Vec<Enemy>>,
-    pub reusable_roomwide_notable: Option<Vec<ReusableRoomwideStrat>>,
+    pub notables: Option<Vec<NotableStrat>>,
     pub note: Option<Note>,
     pub dev_note: Option<DevNote>,
 }
@@ -33,9 +33,14 @@ pub struct RoomId(u8);
 pub struct RoomName(String);
 
 #[derive(Deserialize, Debug)]
+pub struct NotableId(u8);
+
+#[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct ReusableRoomwideStrat {
+pub struct NotableStrat {
+    id: NotableId,
     name: StratName,
+    wall_jump_avoid: Option<bool>,
     note: Note,
     dev_note: Option<DevNote>,
 }
