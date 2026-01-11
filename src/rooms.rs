@@ -19,6 +19,7 @@ pub struct Room {
     pub links: Vec<Link>,
     pub strats: Vec<Strat>,
     pub room_address: Option<RoomMemoryAddress>,
+    pub room_environments: Option<Vec<RoomEnvironment>>,
     pub obstacles: Option<Vec<Obstacle>>,
     pub enemies: Option<Vec<Enemy>>,
     pub notables: Option<Vec<NotableStrat>>,
@@ -132,6 +133,14 @@ pub enum SubSubArea {
 
 #[derive(Deserialize, Debug)]
 pub struct RoomMemoryAddress(String);
+
+#[derive(Deserialize, Debug)]
+pub struct RoomEnvironment {
+    pub heated: Option<bool>,
+    pub entrance_nodes: Option<Vec<NodeId>>,
+    pub note: Option<Note>,
+    pub dev_note: Option<DevNote>,
+}
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
